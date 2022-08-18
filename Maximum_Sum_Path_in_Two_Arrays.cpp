@@ -1,4 +1,5 @@
 
+
 /*
 Question: 
 			You are provided two sorted arrays. You need to find the maximum length of bitonic subsequence. You need to find the sum of the maximum sum path to reach from beginning of any array to end of any of the two arrays. You can switch from one array to another array only at common elements.
@@ -22,6 +23,9 @@ Question:
 			Explanation
 			122 is sum of 1, 5, 7, 8, 10, 12, 15, 30, 34
 */
+
+//My Approach towards the Question->
+/*
 #include <iostream>
 using namespace std;
 int maxof(int a, int b)
@@ -37,7 +41,7 @@ int maxof(int a, int b)
 }
 int main()
 {
-	int maxsum,temp=0,sum1 = 0, sum2 = 0, ans = 0,flag, i, j, n[1000], m[1000], test_cases, counter = 0, arr1[1000], arr2[1000];
+	int maxsum,sum1 = 0, sum2 = 0, ans = 0,flag, i, j, n[1000], m[1000], test_cases, counter = 0, arr1[1000], arr2[1000];
 	cin >> test_cases;
 	while (test_cases > 0)
 	{
@@ -73,38 +77,6 @@ redo:
 	i = 0;
 	j = 0;
 	ans = 0;
-	temp=0;
-	// while (i < n[test_cases] and j < m[test_cases])
-	// {
-	// 	cout<<"in while loop where, i="<<i<<"\t"<<"j="<<j<<endl;
-	// 	if (arr1[i] < arr2[j])
-	// 	{
-	// 		cout<<"in arr1["<<i<<"]<arr2["<<j<<"]"<<endl;
-	// 		sum1 = sum1 + arr2[j];
-	// 		cout<<"Now sum1 is"<<sum1<<endl;
-	// 		j++;
-	// 	}
-	// 	else if (arr1[i] > arr2[j])
-	// 	{
-	// 		cout<<"in arr1["<<i<<"]>arr2["<<j<<"]"<<endl;
-	// 		sum2 = sum2 + arr1[i];
-	// 		cout<<"Now sum1=2 is"<<sum2<<endl;
-	// 		i++;
-	// 	}
-	// 	else // when elements are same
-	// 	{
-	// 		cout<<"in arr1["<<i<<"]=arr2["<<j<<"]"<<endl;
-	// 		// ans+=maxof(sum1,sum2)+arr1[i];
-	// 		int maxsum = maxof(sum1, sum2);
-	// 		cout << " \nmaxsum :" << maxsum << endl;
-	// 		ans += maxsum + arr1[i];
-	// 		cout << "Answer is :" << ans << endl;
-	// 		sum1 = sum2 = 0;
-	// 		i++;
-	// 		j++;
-	// 	}
-	// }
-
 	while (i < n[test_cases] and j < m[test_cases])
 	{
 		cout<<"in while loop where, i="<<i<<"\t"<<"j="<<j<<endl;
@@ -113,9 +85,6 @@ redo:
 			flag=1;
 			cout<<"in arr1["<<i<<"]>arr2["<<j<<"]"<<endl;
 			sum1 = sum1 + arr2[j];
-
-			int k=i;
-			temp=temp+arr1[k];
 			cout<<"Now sum1 is"<<sum1<<endl;
 			j++;
 		}
@@ -124,9 +93,6 @@ redo:
 			flag=1;
 			cout<<"in arr1["<<i<<"]<arr2["<<j<<"]"<<endl;
 			sum2 = sum2 + arr1[i];
-			int k=j;
-			temp=temp+arr2[k];
-
 			cout<<"Now sum2= is"<<sum2<<endl;
 			i++;
 		}
@@ -140,7 +106,6 @@ redo:
 			cout << "Answer is :" << ans << endl;
 			sum1 = 0;
 			sum2 = 0;
-			temp=0;
 			i++;
 			j++;
 			flag=0;
@@ -150,7 +115,6 @@ redo:
 	if(flag==1)
 	{
 		maxsum = maxof(sum1, sum2);
-		maxsum=maxof(maxsum,temp);
 			cout << " \nmaxsum i.e.maxof(sum1,sum2):" << maxsum << endl;
 			ans += maxsum + arr1[i];
 			cout << "Answer is :" << ans << endl;
@@ -168,4 +132,67 @@ redo:
 	}
 
 	return 0;
+}
+
+*/
+
+//Correct Solution->
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int tcase;
+    cin >> tcase;
+    while (tcase--)
+    {
+        int n, m;
+        cin >> n >> m;
+
+        int a[1005];
+        int b[1005];
+
+        for (int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+        for (int i = 0; i < m; i++)
+        {
+            cin >> b[i];
+        }
+        int i = 0, j = 0;
+        int s1 = 0, s2 = 0, sum = 0;
+        while (i < n and j < m)
+        {
+            if (a[i] > b[j])
+            {
+                s2 += b[j++];
+            }
+            else if (b[j] > a[i])
+            {
+                s1 += a[i++];
+            }
+            else
+            {
+                sum += max(s1, s2) + a[i];
+                i++;
+                j++;
+                s1 = 0;
+                s2 = 0;
+            }
+        }
+        while (i < n)
+        {
+            s1 += a[i++];
+        }
+        while (j < m)
+        {
+            s2 += b[j++];
+        }
+        sum += max(s1, s2);
+        cout << sum << endl;
+    }
+    cout<<endl;
+
+    return 0;
 }
