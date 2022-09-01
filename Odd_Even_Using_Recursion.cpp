@@ -21,7 +21,6 @@ Question:
 
 #include<iostream>
 using namespace std;
-
 void OddNumberInDecreasingSequence(int n)
 {
 	//Base case         
@@ -45,7 +44,7 @@ void EvenNumberInIncreasingSequence(int m,int i)
 		cout<<m<<endl;
 		return;
 	}
-
+	
 	//Recurence Relation
 	cout<<i<<endl;
 	EvenNumberInIncreasingSequence(m,i+2);
@@ -56,7 +55,46 @@ void EvenNumberInIncreasingSequence(int m,int i)
 int main() {
 	int n;
 	cin>>n;
-	OddNumberInDecreasingSequence(n);
-	EvenNumberInIncreasingSequence(n-1,2);
+	
+	//1.Taking account of edge cases
+	if(n==1)
+	{
+		cout<<"1";
+		return 0;
+	}
+	
+	if(n%2==0)
+	{
+		OddNumberInDecreasingSequence(n-1);
+		EvenNumberInIncreasingSequence(n,2);
+	}
+	else
+	{
+		OddNumberInDecreasingSequence(n);
+		EvenNumberInIncreasingSequence(n-1,2);
+		
+	}
+
 	return 0;
 }
+
+
+//Approach 2-->
+//Most optimal Solution
+// void display(int n)
+// {
+//      if(n==0)
+//           return;
+//      if(n%2==1)
+//           cout<<n<<"\n";
+//      display(n-1);
+//      if(n%2==0)
+//           cout<<n<<"\n";
+// }
+// int main()
+// {
+//      int n;
+//      cin>>n;
+
+//      display(n);
+// }
