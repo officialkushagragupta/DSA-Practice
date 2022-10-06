@@ -1,3 +1,5 @@
+#include<iostream>
+using namespace std;
 void segregate0and1(int arr[], int size)
 {
     int type0 = 0;
@@ -14,3 +16,11 @@ void segregate0and1(int arr[], int size)
     }
 }
 
+int main()
+{
+
+
+
+
+    return 0;
+}
