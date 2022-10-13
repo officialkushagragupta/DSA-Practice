@@ -23,7 +23,7 @@ using namespace std;
 bool CheckPrime(int n)
 {
     for (int k = 2; k < n; k++)
-    {
+    {k
         if (n % k == 0)
         {
             cout << "Not Prime";
